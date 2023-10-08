@@ -16,11 +16,17 @@ import Image from 'next/image';
 import insta from '../asset/Instagram.jpeg';
 import HomeIcon from '@mui/icons-material/Home';
 import ExploreIcon from '@mui/icons-material/Explore';
+import {AuthContext} from '../context/auth';
+import { Router, useRouter } from 'next/router';
+import Link from 'next/link';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
+
+  const { logout } = React.useContext(AuthContext);
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,6 +44,13 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = async () => {
+    await logout();
+    console.log("Logged out!")
+    router.push('/login');
+  }
+
 
   return (
     <AppBar position="static" className="navbar"  >
@@ -101,11 +114,16 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link href="/profile">
+                  <Typography textAlign="center">Profile</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={() => {
+                handleLogout();
+              }}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

@@ -1,0 +1,44 @@
+
+
+.forgot-card{
+    width:20rem;
+    height:15.8rem;
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+
+
+@media only screen and (max-width:500px)
+{
+   
+    .forgot-card{
+        width:100%;
+    }
+    .forgot-bottom-card{
+        width:100%;
+    }
+    .carbg{
+        display: none;
+    }
+}
+
+@media only screen and (max-width:900px)
+{
+   
+    .forgot-card{
+        width:15rem;
+
+    }
+    .forgot-bottom-card{
+        width:15rem;
+    }
+}
+@media only screen and (max-width:700px)
+{
+   
+    .carbg{
+        display: none;
+    }
+}
+

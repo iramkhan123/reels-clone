@@ -22,28 +22,30 @@ function index() {
   const [password,setPassword] =useState('');
   const [error,setError]=useState('');
   const [loading,setLoading]=useState(false);
-  const { login ,user}=useContext(AuthContext)
-  const handleClick=async()=>{
+  const { forgot ,user}=useContext(AuthContext)
+  const handleClick = async() => {
     try{
-     setLoading(true)
-     setError('');
-     await login(email,password);
-     console.log("Logged in");
-     }
-     catch(err){
-     console.log(err);
-     setError(err.code)
-     setTimeout(()=>{
-       setError('')
-     },2000)
+        setLoading(true)
+        setError('')
+        await forgot(email)
+        console.log("Email Sent")
+        router.push('/login')
+    }catch(err){
+        console.log(err)
+        setError(err.message)
+        setTimeout(()=>{
+            setError('')
+        },2000)
     }
-    setLoading(false); 
- }
+    setLoading(false)
+}
+
   useEffect(()=>{
     if(user){
       router.push('/')
     } 
   },[user])
+
   return (
     <div className='login-container'> 
     
@@ -73,17 +75,18 @@ function index() {
       
     </div>
     <div>
-    <div className='login-card'>
+    <div className='forgot-card'>
      <Image src={insta} className="back"/> 
      <TextField size="small" margin="dense" id="outlined-basic" fullWidth label="Email" variant="outlined" 
       value={email} onChange={(e) => setEmail(e.target.value)}/>
-     <TextField size="small" margin="dense" id="outlined-basic" fullWidth label="Password" type="password" variant="outlined"
-     value={password} onChange={(e)=> setPassword(e.target.value)} />
+     {/*<TextField size="small" margin="dense" id="outlined-basic" fullWidth label="Password" type="password" variant="outlined"
+     value={password} onChange={(e)=> setPassword(e.target.value)} />*/}
+
       {error != "" && <div style={{ color: "red" }}>{error}</div>}
    
       
-      <Button variant="contained"  fullWidth style={{marginTop:'1rem'}} onClick={handleClick} disabled={loading}>Log In</Button>
-      <div style={{color:'blue' , marginTop:'0.5rem'}}> <Link href="/forgotPassword"><span style={{ color: 'blue' }}>Forgot Password ?</span></Link></div>
+      <Button variant="contained"  fullWidth style={{marginTop:'1rem'}} onClick={handleClick} disabled={loading}>Send Email</Button>
+      {/*<div style={{color:'blue' , marginTop:'0.5rem'}}>Forgot Password ?</div>*/}
       </div>
       <div className='bottom-card'>
             Don&apos;t Have an Account? <Link href="/signup"><span style={{ color: 'blue' }}>Sign Up</span></Link>

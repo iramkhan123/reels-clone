@@ -16,7 +16,7 @@ import { AuthContext } from '../../context/auth';
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 
-function index() {
+function Index() {
   const router=useRouter()
   const [email,setEmail]=useState('')
   const [password,setPassword] =useState('');
@@ -85,7 +85,7 @@ function index() {
       <Button variant="contained"  fullWidth style={{marginTop:'1rem'}} onClick={handleClick} disabled={loading}>Log In</Button>
       <div style={{color:'blue' , marginTop:'0.5rem'}}> <Link href="/forgotPassword"><span style={{ color: 'blue' }}>Forgot Password ?</span></Link></div>
       </div>
-      <div className='bottom-card'>
+      <div className='login-bottom-card'>
             Don&apos;t Have an Account? <Link href="/signup"><span style={{ color: 'blue' }}>Sign Up</span></Link>
       </div>
     </div>
@@ -93,4 +93,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

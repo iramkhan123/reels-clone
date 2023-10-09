@@ -7,12 +7,12 @@ import Button from '@mui/material/Button';
 import insta from '../../asset/Instagram.jpeg'
 import { AuthContext } from '../../context/auth';
 import Link from 'next/link'
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { db,storage } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import {db, storage } from '../../firebase'
+import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from "next/router";
 
-function index() {
+function Index() {
 
   const router = useRouter();
   const [email,setEmail]=useState('')
@@ -115,11 +115,11 @@ uploadTask.on('state_changed',
       onClick={handleClick} disabled={loading}>Sign Up</Button>
 
     </div>
-    <div className='bottom-card'>
+    <div className='signup-bottom-card'>
       Already Have an Account? <Link href="/login"><span style={{ color: 'blue' }}>Login</span></Link>
     </div>
     </div>
   )
 }
 
-export default index
+export default Index

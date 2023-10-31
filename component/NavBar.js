@@ -115,7 +115,7 @@ const ResponsiveAppBar = ({ userData })=> {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Link href="/profile">
+                <Link href="/profile" className="liks">
                   <Typography textAlign="center">Profile</Typography>
                 </Link>
               </MenuItem>

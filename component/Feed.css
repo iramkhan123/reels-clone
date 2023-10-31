@@ -40,8 +40,8 @@
     height:80vh;
     border-radius:15px;
     border:1px solid black;
-    overflow-y:scroll;
-    scrollbar-width:0;
+    overflow:scroll;
+    scroll-snap-type: y mandatory;
     margin-top:1rem;
     
     
@@ -49,6 +49,7 @@
 .videos-container::-webkit-scrollbar{
     display: none;
 }
+
 .videos-info{
     position: absolute;
     bottom:30px;
@@ -79,11 +80,17 @@ margin-top:1rem;
     width:20rem; 
     margin-bottom:0.6rem;
     position: relative;
+    scroll-snap-align: start;
+}
+.liks{
+    text-decoration: none;
+    color:black;
 }
 .post-container > video{
-        height:80vh;
-        width:20rem;
-        object-fit:cover;
+        height:100%;
+        width:100%;
+        object-fit:fill;
+
        
         border-radius:15px;
 

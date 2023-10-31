@@ -23,7 +23,7 @@ import Link from 'next/link';
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Logout'];
 
-function ResponsiveAppBar() {
+const ResponsiveAppBar = ({ userData })=> {
 
   const { logout } = React.useContext(AuthContext);
   const router = useRouter();
@@ -53,7 +53,7 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="static" className="navbar"  >
+    <AppBar position="static" className="navbar" style={{ backgroundColor: "white" }} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           
@@ -95,7 +95,7 @@ function ResponsiveAppBar() {
           <ExploreIcon fontSize="large" className="nav-icons"/>  
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"  sx={{margin:"0.5rem"}}/>
+              <Avatar alt="Remy Sharp" src={userData?.profilePhoto}  sx={{margin:"0.5rem"}}/>
               </IconButton>
             </Tooltip>
             <Menu

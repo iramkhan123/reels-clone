@@ -83,8 +83,8 @@ margin-top:1rem;
 .post-container > video{
         height:80vh;
         width:20rem;
-        object-fit:contain;
-        background-color:aqua;
+        object-fit:cover;
+       
         border-radius:15px;
 
 }

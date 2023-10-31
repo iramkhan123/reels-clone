@@ -1,27 +1,63 @@
+import { doc, onSnapshot } from 'firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
-import NavBar from './NavBar';
-function ProfileComp(){
-  return (
-    <div>
-        <NavBar/>
+import { AuthContext } from '../context/auth'
+import { db } from '../firebase'
+import Navbar from './NavBar'
+function ProfileComp() {
+    console.log("hey");
+    const { user } = useContext(AuthContext)
+    const [userData, setUserData] = useState({})
+    const [postIds,setPostIds] = useState([])
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        console.log(user.uid)
+        const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
+            console.log(doc.data());
+            setUserData(doc.data())
+            setPostIds(doc.data().posts)
+        })
+
+        return () => {
+            unsub();
+        }
+    }, [user])
+
+
+    useEffect(() => {
+        let tempArray = []
+        postIds.map(async(postid,idx) => {
+            const unsub = onSnapshot(doc(db, "posts", postid), (doc) => {
+                // console.log(doc.data());
+                tempArray.push(doc.data())
+                console.log(tempArray)
+                setPosts([...tempArray])
+            })
+        })
+    }, [postIds])
+
+    return (
         <div>
-            <div className="profile_upper">
-                <img src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-                style={{height:"8rem",width:"8rem",borderRadius:"50%"}}/>
-                <div style={{flexBasis:"40%"}}>
-                    <h1>Name</h1>
-                    <h3>Posts :10</h3>
+            <Navbar/>
+            <div>
+                <div className='profile_upper'>
+                    <img src={userData?.profilePhoto} style={{height:"8rem",width:"8rem",borderRadius:"50%"}}/>
+                    <div style={{flexBasis:"40%"}}>
+                        <h1>{userData?.name}</h1>
+                        <h3>Posts : {userData?.posts?.length}</h3>
+                    </div>
+                </div>
+                <hr/>
+                <div className='profile_videos'>
+                    {
+                        posts.map((post)=>(
+                            <video src={post.postUrl}/>
+                        ))
+                    }
                 </div>
             </div>
-            <hr/>
-            <div className="profile_videos">
-               <video src="https://youtu.be/stjZKBhQ3lg"/>
-               <video src="https://youtu.be/stjZKBhQ3lg"/>
-               <video src="https://youtu.be/stjZKBhQ3lg"/>
-            </div>       
         </div>
-    </div>
-  )
+    )
 }
 
 export default ProfileComp

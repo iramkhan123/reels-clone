@@ -32,18 +32,26 @@ function Index() {
      }
      catch(err){
      console.log(err);
-     setError(err.code)
+     setError(err.message)
      setTimeout(()=>{
        setError('')
      },2000)
     }
     setLoading(false); 
  }
-  useEffect(()=>{
-    if(user){
+ useEffect(()=>{
+  console.log("login aaya")
+  if(user?.uid){
+      console.log(user)
+      console.log(user=="")
+      console.log(user==null)
+      console.log("user not equal to null")
       router.push('/')
-    } 
-  },[user])
+  }
+  else{
+      console.log("Not logged in");
+  }
+},[user])
   return (
     <div className='login-container'> 
     
